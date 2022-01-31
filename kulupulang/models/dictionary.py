@@ -97,11 +97,20 @@ class Root(UpdatableModel, AutoSlugMixin):
         db_index=True,
         max_length=255,
         blank=False,
+        help_text='this is the root itself. make sure it\'s valid as a root!',
     )
     slug = models.CharField(
         max_length=255,
         blank=True,
         null=False,
+    )
+    gloss = models.TextField(
+        blank=False,
+        help_text='what\'s the general meaning of this root?',
+    )
+    notes = models.TextField(
+        blank=True,
+        help_text='this is for any optional notes you may want to make about this root.',
     )
     batch = models.ForeignKey(
         Batch,
@@ -131,6 +140,7 @@ class Word(UpdatableModel, AutoSlugMixin):
         db_index=True,
         max_length=255,
         blank=False,
+        help_text='this is the word itself.',
     )
     slug = models.CharField(
         max_length=255,
@@ -144,14 +154,20 @@ class Word(UpdatableModel, AutoSlugMixin):
     )
     cls = models.CharField(
         max_length=128,
-        blank=False,
+        blank=True,
         choices=WordClass.CHOICES,
     )
     gloss = models.TextField(
-        blank=True,
+        blank=False,
+        help_text='what does this word mean?',
     )
     etymology = models.TextField(
         blank=True,
+        help_text='optionally, where does this word come from?',
+    )
+    notes = models.TextField(
+        blank=True,
+        help_text='any other optional notes about this word',
     )
     roots = models.ManyToManyField(
         Root,

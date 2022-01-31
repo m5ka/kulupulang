@@ -1,0 +1,24 @@
+{% extends "kulupulang/base/base.jinja" %}
+
+{% block content %}
+    <h2>{{ verb }}</h2>
+    <p>batch #{{ batch.pk }} ({{ batch.name }})</p>
+    {% if form.errors %}
+        {% for error in form.errors %}
+            <div class="alert">{{ error }}</div>
+        {% endfor %}
+    {% endif %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+            {{ field.label_tag() }}
+            <div class="field">
+                {{ field }}
+                {% if field.help_text %}<span class="help_text">{{ field.help_text }}</span>{% endif %}
+            </div>
+        {% endfor %}
+        <div class="actions">
+            <button type="submit">{{ verb }}</button>
+        </div>
+    </form>
+{% endblock content %}

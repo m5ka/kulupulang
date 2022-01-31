@@ -1,0 +1,26 @@
+{% extends "kulupulang/base/base.jinja" %}
+
+{% block content %}
+    <h2>log in</h2>
+    <p>if you don't log in, someone will come for your head! (probably)</p>
+    {% if form.errors %}
+        <div class="alert">username or password incorrect! :(</div>
+    {% endif %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <label for="{{ form.username.name }}">{{ form.username.label }}</label>
+        <div class="field">
+            <input type="text" class="input" name="{{ form.username.name }}" id="{{ form.username.name }}">
+            <span class="help_text">this is some help text to help you out</span>
+        </div>
+        <label for="{{ form.password.name }}">{{ form.password.label }}</label>
+        <div class="field">
+            <input type="password" class="input" name="{{ form.password.name }}" id="{{ form.password.name }}">
+            <span class="help_text">this is some help text to help you out</span>
+        </div>
+        <div class="actions">
+            <input type="hidden" name="next" value="{{ next }}">
+            <button type="submit">log in</button>
+        </div>
+    </form>
+{% endblock content %}

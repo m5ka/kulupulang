@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>kulupu lang</title>
+        <link rel="stylesheet" href="{{ static('dist/css/base.css') }}" type="text/css">
+    </head>
+    <body>
+        <header>
+            <span class="brand">kulupulang</span>
+            <nav>
+                <ul>
+                    {% if request.user.is_authenticated %}
+                        <li><a href="{{ url('dashboard') }}">dashboard</a></li>
+                        <li><a href="#">oven</a></li>
+                        <li><a href="#">disputes</a></li>
+                        <li><a href="{{ url('dictionary.index') }}">dictionary</a></li>
+                        <li class="right"><a href="{{ url('logout') }}">log out</a></li>
+                    {% else %}
+                        <li><a href="{{ url('login') }}">log in</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </header>
+        <main>
+            {% block content %}
+            {% endblock content %}
+        </main>
+        <footer>
+            <p>this was coded by zee · let me know if you have a problem · <a
+                    href="https://github.com/marzusia/kulupulang">github</a></p>
+        </footer>
+    </body>
+</html>

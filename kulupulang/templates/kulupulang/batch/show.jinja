@@ -1,0 +1,30 @@
+{% extends "kulupulang/base/base.jinja" %}
+
+{% block content %}
+    <h2>{{ batch.name }} (batch #{{ batch.pk }})</h2>
+    {% if not batch.submitted %}
+        <p>only <strong>you</strong> can see this batch! you've not submitted it to the oven yet. take your time, and enjoy cooking.</p>
+    {% endif %}
+    <h3 class="m-top">roots</h3>
+    {% with roots = batch.root_set.all() %}
+        {% if roots %}
+            <p>these are the roots you've cooked so far. <a href="#">add another?</a></p>
+            {% for root in roots %}
+                <li><a href="#">{{ root }}</a></li>
+            {% endfor %}
+        {% else %}
+            <p>there are no roots in this batch. <a href="#">add one?</a></p>
+        {% endif %}
+    {% endwith %}
+    <h3 class="m-top">words</h3>
+    {% with words = batch.root_set.all() %}
+        {% if words %}
+            <p>these are the words you've cooked so far. <a href="#">add another?</a></p>
+            {% for word in words %}
+                <li><a href="#">{{ word }}</a></li>
+            {% endfor %}
+        {% else %}
+            <p>there are no words in this batch. <a href="#">add one?</a></p>
+        {% endif %}
+    {% endwith %}
+{% endblock content %}

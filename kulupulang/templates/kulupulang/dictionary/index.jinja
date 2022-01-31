@@ -1,0 +1,14 @@
+{% extends "kulupulang/base/base.jinja" %}
+
+{% block content %}
+    <h2>dictionary</h2>
+    {% if words %}
+        <ul>
+            {% for word in words %}
+                <li>{{ word }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>there are no words in the dictionary yet :(</p>
+    {% endif %}
+{% endblock %}

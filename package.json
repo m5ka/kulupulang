@@ -1,0 +1,27 @@
+{
+  "name": "kulupulang",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marzusia/kulupulang.git"
+  },
+  "author": "Marzena",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/marzusia/kulupulang/issues"
+  },
+  "homepage": "https://github.com/marzusia/kulupulang#readme",
+  "dependencies": {
+    "autoprefixer": "^10.4.2",
+    "cssnano": "^5.0.15",
+    "gulp": "^4.0.2",
+    "gulp-less": "^5.0.0",
+    "gulp-postcss": "^9.0.1",
+    "postcss": "^8.4.5"
+  }
+}

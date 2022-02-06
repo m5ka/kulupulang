@@ -75,7 +75,7 @@ class Batch(UpdatableModel):
         return reverse('batch.show', kwargs={'batch': self.pk})
 
     def is_editable_by(self, user):
-        return self.created_by == user or user in self.contributors
+        return self.created_by == user or user in self.contributors.all()
 
     @transaction.atomic
     def pass_batch(self):

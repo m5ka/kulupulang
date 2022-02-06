@@ -1,0 +1,19 @@
+{% extends "kulupulang/base/base.jinja" %}
+
+{% block content %}
+    <h2>disputes</h2>
+    <p>these are batches that have been flagged for discussion by at least one person.</p>
+    <ul>
+        {% if batches %}
+            {% for batch in batches %}
+                <li>
+                    <a href="{{ batch.get_absolute_url() }}">#{{ batch.pk }} {{ batch.name }}</a><br>
+                    submitted {{ batch.submitted_at|naturaltime }} · takes {{ batch.voting_hours }} hours to cook<br>
+                    flagged by {{ batch.discussion_count }} people
+                </li>
+            {% endfor %}
+        {% else %}
+            <li>there are no batches that have been flagged for discussion right now</li>
+        {% endif %}
+    </ul>
+{% endblock content %}

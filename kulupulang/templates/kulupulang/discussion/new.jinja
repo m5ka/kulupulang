@@ -1,0 +1,13 @@
+{% extends "kulupulang/base/base.jinja" %}
+
+{% block content %}
+    <h2>raise a dispute on batch #{{ batch.pk }} ({{ batch.name }})</h2>
+    <p>this will take <a href="{{ batch.get_absolute_url() }}">batch #{{ batch.pk }} ({{ batch.name }})</a> out of the oven and place it onto the discussion page. it will remain there until <strong>you</strong> mark this discussion as resolved, or until the batch is un-submitted so it can be modified.</p>
+    <p>once the batch is up for discussion, it's up to the kulupu to discuss the batch together to come to an agreement on it.</p>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="actions">
+            <button type="submit">raise!</button>
+        </div>
+    </form>
+{% endblock content %}

@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'django_jinja',
+    'django_crontab',
     'kulupulang',
 ]
 
@@ -53,7 +54,7 @@ ROOT_URLCONF = 'project.urls'
 # https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#auth-custom-user
 
 AUTH_USER_MODEL = 'kulupulang.User'
-LOGIN_URL = 'auth.login'
+LOGIN_URL = 'login'
 
 
 # Templates
@@ -111,3 +112,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Cron jobs
+# https://pypi.org/project/django-crontab/#description
+
+CRONJOBS = [
+    ('*/15 * * * *', 'kulupulang.cron.promote_oven_to_dictionary_task'),
+]

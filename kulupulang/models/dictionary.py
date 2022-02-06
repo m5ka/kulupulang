@@ -10,6 +10,14 @@ from .base.mixins import AutoSlugMixin
 from .user import User
 
 
+class BatchManager(models.Manager):
+    def in_oven(self):
+        return self.filter(submitted=True, discussion_count=0, passed=False)
+
+    def flagged(self):
+        return self.filter(submitted=True, discussion_count__gt=0)
+
+
 class Batch(UpdatableModel):
     name = models.CharField(
         db_index=True,
@@ -26,8 +34,8 @@ class Batch(UpdatableModel):
     submitted_at = models.DateTimeField(
         null=True,
     )
-    flagged = models.BooleanField(
-        default=False,
+    discussion_count = models.IntegerField(
+        default=0,
     )
     passed = models.BooleanField(
         default=False,
@@ -39,6 +47,11 @@ class Batch(UpdatableModel):
         User,
         on_delete=models.SET_NULL,
         null=True,
+        related_name='batch_set',
+    )
+    contributors = models.ManyToManyField(
+        User,
+        related_name='batch_contribution_set',
     )
     voting_from = models.DateTimeField(
         default=timezone.now,
@@ -48,12 +61,21 @@ class Batch(UpdatableModel):
         help_text='how many hours should this stay in the oven before it\'s cooked and in the dictionary?',
     )
 
+    objects = BatchManager()
+
     def check_passed(self):
         voting_end = self.voting_from + timedelta(hours=self.voting_hours)
-        return not (self.flagged or timezone.now() < voting_end)
+        return not (self.discussion_count > 0 or timezone.now() < voting_end)
+
+    @property
+    def editable(self):
+        return not self.submitted and not self.passed
 
     def get_absolute_url(self):
         return reverse('batch.show', kwargs={'batch': self.pk})
+
+    def is_editable_by(self, user):
+        return self.created_by == user or user in self.contributors
 
     @transaction.atomic
     def pass_batch(self):
@@ -61,8 +83,31 @@ class Batch(UpdatableModel):
         self.passed_at = timezone.now()
         self.save()
 
-        Root.objects.filter(batch=self).update(passed=True, passed_at=timezone.now)
-        Word.objects.filter(batch=self).update(passed=True, passed_at=timezone.now)
+        Root.objects.filter(batch=self).update(passed=True, passed_at=timezone.now())
+        Word.objects.filter(batch=self).update(passed=True, passed_at=timezone.now())
+
+    def raise_discussion(self, user):
+        if Discussion.objects.filter(batch=self, resolved=False, opened_by=user).exists():
+            return
+        with transaction.atomic():
+            Discussion.objects.create(
+                batch=self,
+                opened_by=user,
+            )
+            self.discussion_count += 1
+            self.save()
+
+    def submit(self):
+        self.submitted = True
+        self.submitted_at = timezone.now()
+        self.save()
+
+    @transaction.atomic
+    def unsubmit(self):
+        Discussion.objects.filter(batch=self).delete()
+        self.discussion_count = 0
+        self.submitted = False
+        self.save()
 
     def __str__(self):
         return self.name
@@ -83,13 +128,12 @@ class Discussion(UpdatableModel):
 
     @transaction.atomic
     def resolve(self):
+        if self.resolved:
+            return
         self.resolved = True
         self.save()
-
-        if not Discussion.objects.filter(batch=self.batch, resolved=False).exists():
-            self.batch.flagged = False
-            self.batch.voting_from = timezone.now()
-            self.batch.save()
+        self.batch.discussion_count -= 1
+        self.batch.save()
 
 
 class Root(UpdatableModel, AutoSlugMixin):
@@ -130,6 +174,13 @@ class Root(UpdatableModel, AutoSlugMixin):
     )
 
     auto_slug_populate_from = 'root'
+
+    @property
+    def editable(self):
+        return not self.passed and self.batch.editable
+
+    def get_absolute_url(self):
+        return reverse('root.show', kwargs={'batch': self.batch.pk, 'root': self.pk})
 
     def __str__(self):
         return self.root
@@ -190,6 +241,13 @@ class Word(UpdatableModel, AutoSlugMixin):
     )
 
     auto_slug_populate_from = 'headword'
+
+    @property
+    def editable(self):
+        return not self.passed and self.batch.editable
+
+    def get_absolute_url(self):
+        return reverse('word.show', kwargs={'batch': self.batch.pk, 'word': self.pk})
 
     def __str__(self):
         return self.headword

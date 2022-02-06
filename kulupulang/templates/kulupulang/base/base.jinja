@@ -13,8 +13,8 @@
                 <ul>
                     {% if request.user.is_authenticated %}
                         <li><a href="{{ url('dashboard') }}">dashboard</a></li>
-                        <li><a href="#">oven</a></li>
-                        <li><a href="#">disputes</a></li>
+                        <li><a href="{{ url('batch.oven') }}">oven</a></li>
+                        <li><a href="{{ url('discussion.index') }}">disputes</a></li>
                         <li><a href="{{ url('dictionary.index') }}">dictionary</a></li>
                         <li class="right"><a href="{{ url('logout') }}">log out</a></li>
                     {% else %}

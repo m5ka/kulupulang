@@ -1,0 +1,12 @@
+{% extends "kulupulang/base/base.jinja" %}
+
+{% block content %}
+    <h2>promote batch</h2>
+    <p><strong>hey! warning!</strong> this is a special admin action. only manually promote a batch if you are confident that you need to! the system should automatically do this! this page will *not* perform any of the checks required for a batch to pass normally!</p>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="actions">
+            <button type="submit">i understand. promote it anyway!</button>
+        </div>
+    </form>
+{% endblock content %}

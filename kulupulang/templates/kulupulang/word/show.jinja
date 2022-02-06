@@ -1,0 +1,22 @@
+{% extends "kulupulang/base/base.jinja" %}
+
+{% block content %}
+    <h2>{{ word.headword }}</h2>
+    <strong>{{ word.get_pos_display() }}{% if word.cls %} · {{ word.get_cls_display() }}{% endif %}</strong>
+    <p>{{ word.gloss }}</p>
+    {% if word.etymology %}
+        <strong>etymology</strong>
+        <p>{{ word.etymology }}</p>
+    {% endif %}
+    {% if word.notes %}
+        <strong>notes</strong>
+        <p>{{ word.notes }}</p>
+    {% endif %}
+    <p>
+        this word is a part of <a href="{{ batch.get_absolute_url() }}">batch #{{ batch.pk }} ({{ batch.name }})</a>
+        {% if has_edit_permission and word.editable %}
+        ─ <a href="{{ url('word.edit', batch=batch.pk, word=word.pk) }}">edit</a>
+        / <a href="{{ url('word.delete', batch=batch.pk, word=word.pk) }}">delete</a>
+        {% endif %}
+    </p>
+{% endblock content %}

@@ -1,0 +1,30 @@
+{% extends "kulupulang/base/base.jinja" %}
+
+{% block content %}
+    {% for root in roots %}
+        <div class="dictionary-entry">
+            <h3>{{ root.root }}</h3>
+            <strong>root</strong>
+            <p>{{ root.gloss }}</p>
+            {% if root.notes %}
+                <strong>notes</strong>
+                <p>{{ root.notes }}</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+    {% for word in words %}
+        <div class="dictionary-entry">
+            <h3>{{ word.headword }}</h3>
+            <strong>{{ word.get_pos_display() }}{% if word.cls %} · {{ word.get_cls_display() }}{% endif %}</strong>
+            <p>{{ word.gloss }}</p>
+            {% if word.etymology %}
+                <strong>etymology</strong>
+                <p>{{ word.etymology }}</p>
+            {% endif %}
+            {% if word.notes %}
+                <strong>notes</strong>
+                <p>{{ word.notes }}</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endblock %}

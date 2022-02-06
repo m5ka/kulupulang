@@ -1,0 +1,17 @@
+{% extends "kulupulang/base/base.jinja" %}
+
+{% block content %}
+    <h2>oven</h2>
+    <p>these are all the batches that are currently cooking. batches that were cooking but have been disputed are not shown here.</p>
+    <ul>
+        {% if batches %}
+            {% for batch in batches %}
+                <li>
+                    <a href="{{ batch.get_absolute_url() }}">#{{ batch.pk }} {{ batch.name }}</a><br>
+                    submitted {{ batch.submitted_at|naturaltime }} · takes {{ batch.voting_hours }} hours to cook</li>
+            {% endfor %}
+        {% else %}
+            <li>there are no batches in the oven right now</li>
+        {% endif %}
+    </ul>
+{% endblock content %}

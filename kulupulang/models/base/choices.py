@@ -3,11 +3,21 @@ class PartOfSpeech:
     VERB = 'verb'
     PARTICLE = 'particle'
     PRONOUN = 'pronoun'
+    ADJECTIVE = 'adjective'
+    ADVERB = 'adverb'
+    DETERMINER = 'determiner'
+    ROOT = 'root'
+    AFFIX = 'affix'
     CHOICES = (
         (NOUN, 'noun'),
         (VERB, 'verb'),
         (PARTICLE, 'particle'),
         (PRONOUN, 'pronoun'),
+        (ADJECTIVE, 'adjective'),
+        (ADVERB, 'adverb'),
+        (DETERMINER, 'determiner'),
+        (ROOT, 'root'),
+        (AFFIX, 'affix'),
     )
 
 

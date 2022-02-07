@@ -5,7 +5,7 @@ from django.utils.functional import cached_property
 
 from .base import BaseFormView, BaseView
 from ..forms.dictionary import BatchForm
-from ..models.dictionary import Batch, Discussion, Root, Word
+from ..models.dictionary import Batch, Discussion, Word
 
 
 class BatchMixin:
@@ -78,7 +78,6 @@ class ShowBatchView(BatchMixin, BaseView):
         return {
             **super().get_context_data(**kwargs),
             'batch': self.batch,
-            'roots': Root.objects.filter(batch=self.batch),
             'words': Word.objects.filter(batch=self.batch),
             'has_edit_permission': self.has_edit_permission,
             'user_discussion': Discussion.objects.filter(

@@ -9,20 +9,6 @@
     {% if has_edit_permission and batch.submitted and not batch.passed %}
         <p>this batch is in the oven right now. <a href="{{ url('batch.unsubmit', batch=batch.pk) }}">un-submit it?</a></p>
     {% endif %}
-    <h3 class="m-top">roots</h3>
-    {% if roots %}
-        {% if has_edit_permission and batch.editable %}
-            <p>these are the roots you've cooked so far. <a href="{{ url('root.new', batch=batch.pk) }}">add another?</a></p>
-        {% endif %}
-        <ul>
-            {% for root in roots %}
-                <li><a href="{{ root.get_absolute_url() }}">{{ root }}</a> · {{ root.gloss }}</li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>there are no roots in this batch. {% if has_edit_permission and batch.editable %}<a href="{{ url('root.new', batch=batch.pk) }}">add one?</a>{% endif %}</p>
-    {% endif %}
-    <h3 class="m-top">words</h3>
     {% if words %}
         {% if has_edit_permission and batch.editable %}
             <p>these are the words you've cooked so far. <a href="{{ url('word.new', batch=batch.pk) }}">add another?</a></p>

@@ -67,6 +67,13 @@ class Batch(UpdatableModel):
         voting_end = self.voting_from + timedelta(hours=self.voting_hours)
         return not (self.discussion_count > 0 or timezone.now() < voting_end)
 
+    def decrement_discussion_count(self):
+        if self.discussion_count > 0:
+            self.discussion_count -= 1
+            if self.discussion_count == 0:
+                self.submitted_at = timezone.now()
+            self.save()
+
     @property
     def editable(self):
         return not self.submitted and not self.passed
@@ -83,7 +90,6 @@ class Batch(UpdatableModel):
         self.passed_at = timezone.now()
         self.save()
 
-        Root.objects.filter(batch=self).update(passed=True, passed_at=timezone.now())
         Word.objects.filter(batch=self).update(passed=True, passed_at=timezone.now())
 
     def raise_discussion(self, user):
@@ -132,58 +138,7 @@ class Discussion(UpdatableModel):
             return
         self.resolved = True
         self.save()
-        self.batch.discussion_count -= 1
-        self.batch.save()
-
-
-class Root(UpdatableModel, AutoSlugMixin):
-    root = models.CharField(
-        db_index=True,
-        max_length=255,
-        blank=False,
-        help_text='this is the root itself. make sure it\'s valid as a root!',
-    )
-    slug = models.CharField(
-        max_length=255,
-        blank=True,
-        null=False,
-    )
-    gloss = models.TextField(
-        blank=False,
-        help_text='what\'s the general meaning of this root?',
-    )
-    notes = models.TextField(
-        blank=True,
-        help_text='this is for any optional notes you may want to make about this root.',
-    )
-    batch = models.ForeignKey(
-        Batch,
-        on_delete=models.CASCADE,
-        null=True,
-    )
-    passed = models.BooleanField(
-        default=False,
-    )
-    passed_at = models.DateTimeField(
-        null=True,
-    )
-    created_by = models.ForeignKey(
-        User,
-        on_delete=models.SET_NULL,
-        null=True,
-    )
-
-    auto_slug_populate_from = 'root'
-
-    @property
-    def editable(self):
-        return not self.passed and self.batch.editable
-
-    def get_absolute_url(self):
-        return reverse('root.show', kwargs={'batch': self.batch.pk, 'root': self.pk})
-
-    def __str__(self):
-        return self.root
+        self.batch.decrement_discussion_count()
 
 
 class Word(UpdatableModel, AutoSlugMixin):
@@ -219,9 +174,6 @@ class Word(UpdatableModel, AutoSlugMixin):
     notes = models.TextField(
         blank=True,
         help_text='any other optional notes about this word',
-    )
-    roots = models.ManyToManyField(
-        Root,
     )
     batch = models.ForeignKey(
         Batch,

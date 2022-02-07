@@ -1,17 +1,11 @@
 from .base import BaseModelForm
-from ..models.dictionary import Batch, Root, Word
+from ..models.dictionary import Batch, Word
 
 
 class BatchForm(BaseModelForm):
     class Meta:
         model = Batch
         fields = ('name', 'description', 'voting_hours',)
-
-
-class RootForm(BaseModelForm):
-    class Meta:
-        model = Root
-        fields = ('root', 'gloss', 'notes',)
 
 
 class WordForm(BaseModelForm):

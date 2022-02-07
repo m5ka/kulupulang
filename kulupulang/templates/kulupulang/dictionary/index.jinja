@@ -2,17 +2,6 @@
 
 {% block content %}
     <h2>dictionary</h2>
-    <h3 class="m-top">roots</h3>
-    {% if roots %}
-        <ul>
-            {% for root in roots %}
-                <li><a href="{{ url('dictionary.show', slug=root.slug) }}">{{ root }}</a> · {{ root.gloss }}</li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>there are no roots in the dictionary yet :(</p>
-    {% endif %}
-    <h3 class="m-top">words</h3>
     {% if words %}
         <ul>
             {% for word in words %}

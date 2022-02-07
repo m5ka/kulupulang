@@ -1,11 +1,11 @@
-from .dictionary import Batch, Root, Word
+from .dictionary import Batch, Discussion, Word
 from .user import User
 
 
 __all__ = [
     # dictionary
     'Batch',
-    'Root',
+    'Discussion',
     'Word',
     # user
     'User',

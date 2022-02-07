@@ -4,17 +4,12 @@ from .views.auth import LoginView, LogoutView
 from .views.batch import NewBatchView, OvenBatchView, PromoteBatchView, ShowBatchView, SubmitBatchView, UnsubmitBatchView
 from .views.dictionary import IndexDictionaryView, ShowDictionaryView
 from .views.discussion import IndexDiscussionView, NewDiscussionView, ResolveDiscussionView
-from .views.root import DeleteRootView, EditRootView, NewRootView, ShowRootView
 from .views.static import DashboardView
 from .views.word import DeleteWordView, EditWordView, NewWordView, ShowWordView
 
 
 urlpatterns = [
     path('batch/new', NewBatchView.as_view(), name='batch.new'),
-    path('batch/<int:batch>/root/new', NewRootView.as_view(), name='root.new'),
-    path('batch/<int:batch>/root/<int:root>', ShowRootView.as_view(), name='root.show'),
-    path('batch/<int:batch>/root/<int:root>/edit', EditRootView.as_view(), name='root.edit'),
-    path('batch/<int:batch>/root/<int:root>/delete', DeleteRootView.as_view(), name='root.delete'),
     path('batch/<int:batch>/word/new', NewWordView.as_view(), name='word.new'),
     path('batch/<int:batch>/word/<int:word>', ShowWordView.as_view(), name='word.show'),
     path('batch/<int:batch>/word/<int:word>/edit', EditWordView.as_view(), name='word.edit'),

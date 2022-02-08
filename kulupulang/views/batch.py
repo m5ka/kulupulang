@@ -5,7 +5,9 @@ from django.utils.functional import cached_property
 
 from .base import BaseFormView, BaseView
 from ..forms.dictionary import BatchForm
+from ..forms.user import UserSelectForm
 from ..models.dictionary import Batch, Discussion, Word
+from ..models.user import User
 
 
 class BatchMixin:
@@ -18,6 +20,30 @@ class BatchMixin:
         if not self.request.user.is_authenticated:
             return False
         return self.batch.is_editable_by(self.request.user)
+
+
+class AddContributorBatchView(BatchMixin, UserPassesTestMixin, BaseFormView):
+    template_name = 'kulupulang/batch/add_contributor.jinja'
+    form_class = UserSelectForm
+
+    def form_valid(self, form):
+        if not (form.cleaned_data['user'] == self.request.user
+                and form.cleaned_data['user'] in self.batch.contributors.all()):
+            self.batch.contributors.add(form.cleaned_data['user'])
+        return redirect(self.batch.get_absolute_url())
+
+    def get_form(self):
+        return UserSelectForm(
+            excludes=[self.request.user, *self.batch.contributors.all()],
+            **self.get_form_kwargs(),
+        )
+
+    def test_func(self):
+        return self.has_edit_permission and self.batch.editable
+
+    @property
+    def verb(self):
+        return 'add a contributor to batch: %s' % self.batch
 
 
 class EditBatchView(BatchMixin, UserPassesTestMixin, BaseFormView):

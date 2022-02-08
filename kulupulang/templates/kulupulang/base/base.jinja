@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>kulupulang</title>
+        <title>{{ title ~ ' · ' if title else '' }}kulupulang</title>
         <link rel="stylesheet" href="{{ static('dist/css/base.css') }}" type="text/css">
     </head>
     <body>
@@ -16,7 +16,8 @@
                         <li><a href="{{ url('batch.oven') }}">oven</a></li>
                         <li><a href="{{ url('discussion.index') }}">disputes</a></li>
                         <li><a href="{{ url('dictionary.index') }}">dictionary</a></li>
-                        <li class="right"><a href="{{ url('logout') }}">log out</a></li>
+                        <li class="right">{{ greeting }}, {{ request.user }}</li>
+                        <li><a href="{{ url('logout') }}">log out</a></li>
                     {% else %}
                         <li><a href="{{ url('login') }}">log in</a></li>
                     {% endif %}

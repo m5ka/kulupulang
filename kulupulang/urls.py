@@ -1,7 +1,15 @@
 from django.urls import path
 
 from .views.auth import LoginView, LogoutView
-from .views.batch import NewBatchView, OvenBatchView, PromoteBatchView, ShowBatchView, SubmitBatchView, UnsubmitBatchView
+from .views.batch import (
+    AddContributorBatchView,
+    NewBatchView,
+    OvenBatchView,
+    PromoteBatchView,
+    ShowBatchView,
+    SubmitBatchView,
+    UnsubmitBatchView,
+)
 from .views.dictionary import IndexDictionaryView, ShowDictionaryView
 from .views.discussion import IndexDiscussionView, NewDiscussionView, ResolveDiscussionView
 from .views.static import DashboardView
@@ -14,6 +22,7 @@ urlpatterns = [
     path('batch/<int:batch>/word/<int:word>', ShowWordView.as_view(), name='word.show'),
     path('batch/<int:batch>/word/<int:word>/edit', EditWordView.as_view(), name='word.edit'),
     path('batch/<int:batch>/word/<int:word>/delete', DeleteWordView.as_view(), name='word.delete'),
+    path('batch/<int:batch>/contributor', AddContributorBatchView.as_view(), name='batch.add_contributor'),
     path('batch/<int:batch>/submit', SubmitBatchView.as_view(), name='batch.submit'),
     path('batch/<int:batch>/unsubmit', UnsubmitBatchView.as_view(), name='batch.unsubmit'),
     path('batch/<int:batch>/discuss', NewDiscussionView.as_view(), name='discussion.new'),

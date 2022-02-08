@@ -20,7 +20,7 @@ class User(AbstractUser):
             'Make sure it\'s a valid email address and that you have access to it.'
         ),
         max_length=128,
-        unique=True,
+        blank=True,
     )
     preferred_name = models.CharField(
         verbose_name=_('Display name'),

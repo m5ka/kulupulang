@@ -32,6 +32,7 @@ class Batch(UpdatableModel):
         default=False,
     )
     submitted_at = models.DateTimeField(
+        blank=True,
         null=True,
     )
     discussion_count = models.IntegerField(
@@ -41,6 +42,7 @@ class Batch(UpdatableModel):
         default=False,
     )
     passed_at = models.DateTimeField(
+        blank=True,
         null=True,
     )
     created_by = models.ForeignKey(
@@ -184,6 +186,7 @@ class Word(UpdatableModel, AutoSlugMixin):
         default=False,
     )
     passed_at = models.DateTimeField(
+        blank=True,
         null=True,
     )
     created_by = models.ForeignKey(

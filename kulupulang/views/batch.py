@@ -54,6 +54,9 @@ class EditBatchView(BatchMixin, UserPassesTestMixin, BaseFormView):
         form.instance.save()
         return redirect(form.instance.get_absolute_url())
 
+    def get_form(self):
+        return BatchForm(instance=self.batch, **self.get_form_kwargs())
+
     def test_func(self):
         return self.has_edit_permission and self.batch.editable
 

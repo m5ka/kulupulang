@@ -4,12 +4,17 @@
 {% block content %}
     <h2>{{ batch.name }} (batch #{{ batch.pk }})</h2>
     {% if has_edit_permission and batch.editable %}
-        <p>right now, only contributors to this batch (that's you!) can make changes to this batch. it has not been submitted to the oven yet. take your time, and enjoy cooking.</p>
+        <p>right now, only contributors to this batch (that's you!) can make changes to this batch. it has not been submitted to the oven yet. take your time, and enjoy cooking. <a href="{{ url('batch.edit', batch=batch.pk) }}">edit batch info?</a></p>
         <p>once you're happy with the words/roots you've added to it: <a href="{{ url('batch.submit', batch=batch.pk) }}">put this batch in the oven</a></p>
     {% endif %}
     {% if has_edit_permission and batch.submitted and not batch.passed %}
         <p>this batch is in the oven right now. <a href="{{ url('batch.unsubmit', batch=batch.pk) }}">un-submit it?</a></p>
     {% endif %}
+    {% if batch.description %}
+        <h3 class="m-top">description</h3>
+        <p>{{ batch.description }}</p>
+    {% endif %}
+    <h3 class="m-top">words</h3>
     {% if words %}
         {% if has_edit_permission and batch.editable %}
             <p>these are the words you've cooked so far. <a href="{{ url('word.new', batch=batch.pk) }}">add another?</a></p>
@@ -24,7 +29,7 @@
     {% endif %}
     <h3 class="m-top">contributors</h3>
     {% if has_edit_permission and batch.editable %}
-        <p>only contributors like yourself can make changes to batches or submit them to the oven. <a href="#">add a contributor?</a></p>
+        <p>only contributors like yourself can make changes to batches or submit them to the oven. <a href="{{ url('batch.add_contributor', batch=batch.pk) }}">add a contributor?</a></p>
     {% endif %}
     <ul>
         <li>{{ batch.created_by }} (creator)</li>

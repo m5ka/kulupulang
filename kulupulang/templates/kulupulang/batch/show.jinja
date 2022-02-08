@@ -4,49 +4,77 @@
 {% block content %}
     <h2>{{ batch.name }}</h2>
     {% if has_edit_permission and batch.editable %}
-        <p>right now, only contributors to this batch (that's you!) can make changes to this batch. it has not been submitted to the oven yet. take your time, and enjoy cooking. <a href="{{ url('batch.edit', batch=batch.pk) }}">edit batch info?</a></p>
-        <p>once you're happy with the words/roots you've added to it: <a href="{{ url('batch.submit', batch=batch.pk) }}">put this batch in the oven</a></p>
+        <p>right now, only contributors to this batch (that's you!) can make changes to this batch. it has not been submitted to the oven yet. take your time, and enjoy cooking.</p>
     {% endif %}
     {% if has_edit_permission and batch.submitted and not batch.passed %}
-        <p>this batch is in the oven right now. <a href="{{ url('batch.unsubmit', batch=batch.pk) }}">un-submit it?</a></p>
+        <p>this batch is in the oven right now.</p>
     {% endif %}
-    {% if batch.description %}
-        <h3 class="m-top">description</h3>
-        <p>{{ batch.description }}</p>
-    {% endif %}
-    <h3 class="m-top">words</h3>
-    {% if words %}
-        {% if has_edit_permission and batch.editable %}
-            <p>these are the words you've cooked so far. <a href="{{ url('word.new', batch=batch.pk) }}">add another?</a></p>
+    <section class="actions batch-actions">
+        {% if has_edit_permission and batch.submitted and not batch.passed %}
+            <a class="button" href="{{ url('batch.unsubmit', batch=batch.pk) }}">un-submit batch</a>
         {% endif %}
+        {% if has_edit_permission and batch.editable %}
+            <a class="button" href="{{ url('batch.submit', batch=batch.pk) }}">put this batch in the oven</a>
+            <a class="button" href="{{ url('batch.edit', batch=batch.pk) }}">edit batch info</a>
+        {% endif %}
+    </section>
+    {% if batch.description %}
+        <section class="description">
+            <h3 class="m-top">description</h3>
+            <p>{{ batch.description }}</p>
+        </section>
+    {% endif %}
+    <section class="words">
+        <h3 class="m-top">words</h3>
+        {% if words %}
+            {% if has_edit_permission and batch.editable %}
+                <p>these are the words you've cooked so far. <a href="{{ url('word.new', batch=batch.pk) }}">add another?</a></p>
+            {% endif %}
+            <ul>
+                {% for word in words %}
+                    <li><a href="{{ word.get_absolute_url() }}">{{ word }}</a> · {{ word.definition }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>there are no words in this batch.</p>
+        {% endif %}
+    </section>
+    {% if has_edit_permission and batch.editable %}
+        <section class="actions word-actions">
+            <a href="{{ url('word.new', batch=batch.pk) }}" class="button">add word</a>
+        </section>
+    {% endif %}
+    <section class="contributors">
+        <h3 class="m-top">contributors</h3>
         <ul>
-            {% for word in words %}
-                <li><a href="{{ word.get_absolute_url() }}">{{ word }}</a> · {{ word.definition }}</li>
+            <li>{{ batch.created_by }} (creator)</li>
+            {% for contributor in batch.contributors.all() %}
+                <li>{{ contributor }}</li>
             {% endfor %}
         </ul>
-    {% else %}
-        <p>there are no words in this batch. {% if has_edit_permission and batch.editable %}<a href="{{ url('word.new', batch=batch.pk) }}">add one?</a>{% endif %}</p>
-    {% endif %}
-    <h3 class="m-top">contributors</h3>
+    </section>
     {% if has_edit_permission and batch.editable %}
-        <p>only contributors like yourself can make changes to batches or submit them to the oven. <a href="{{ url('batch.add_contributor', batch=batch.pk) }}">add a contributor?</a></p>
+        <section class="actions contributors-actions">
+            <a class="button" href="{{ url('batch.add_contributor', batch=batch.pk) }}">add contributor</a>
+        </section>
     {% endif %}
-    <ul>
-        <li>{{ batch.created_by }} (creator)</li>
-        {% for contributor in batch.contributors.all() %}
-            <li>{{ contributor }}</li>
-        {% endfor %}
-    </ul>
     {% if batch.discussion_count > 0 %}
-        <p>
-            this batch is flagged for discussion by {{ batch.discussion_count }}
-            people.
-            {% if user_discussion %}<a href="{{ url('discussion.resolve', discussion=user_discussion.pk) }}">mark your dispute as resolved?</a>{% endif %}
-        </p>
+        <section class="discussion">
+            <p>this batch is flagged for discussion by {{ batch.discussion_count }} people.</p>
+        </section>
+        {% if user_discussion %}
+            <section class="actions discussion-actions">
+                <a class="button" href="{{ url('discussion.resolve', discussion=user_discussion.pk) }}">mark your dispute as resolved</a>
+            </section>
+        {% endif %}
     {% elif batch.submitted and not batch.passed %}
-        <p>
-            this batch is in the oven.
-            {% if request.user.is_authenticated %}<a href="{{ url('discussion.new', batch=batch.pk) }}">flag for discussion?</a>{% endif %}
-        </p>
+        <section class="discussion">
+            <p>this batch is in the oven.</p>
+        </section>
+        {% if request.user.is_authenticated %}
+            <section class="actions discussion-actions">
+                <a class="button" href="{{ url('discussion.new', batch=batch.pk) }}">flag for discussion</a>
+            </section>
+        {% endif %}
     {% endif %}
 {% endblock content %}

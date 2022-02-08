@@ -126,3 +126,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CRONJOBS = [
     ('*/15 * * * *', 'kulupulang.cron.promote_oven_to_dictionary_task'),
 ]
+
+
+# User themes
+# Make sure one of them is default!
+KULUPULANG_USER_THEMES = (
+    ('default', 'minimal theme (default)'),
+    ('digital', 'digital theme'),
+    ('mint', 'mint theme'),
+)

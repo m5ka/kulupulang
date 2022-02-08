@@ -3,14 +3,17 @@
 
 {% block content %}
     <h2>dashboard</h2>
+    <section class="actions dashboard-actions">
+        <a href="{{ url('batch.new') }}" class="button">new batch</a>
+    </section>
     {% if unsubmitted_batches %}
-        <p>you have a few unsubmitted batches. click below to keep working on them, or <a href="{{ url('batch.new') }}">start another one</a>.</p>
+        <p>you're contributing to a few unsubmitted batches. click on one below to keep working on it.</p>
         <ul>
             {% for unsubmitted_batch in unsubmitted_batches %}
                 <li><a href="{{ unsubmitted_batch.get_absolute_url() }}">{{ unsubmitted_batch }}</a></li>
             {% endfor %}
         </ul>
     {% else %}
-        <p>you have no unsubmitted batches. <a href="{{ url('batch.new') }}">start one</a>?</p>
+        <p>you have no unsubmitted batches.</p>
     {% endif %}
 {% endblock %}

@@ -5,11 +5,11 @@ from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 
-from .base import BaseFormView
+from .base import BaseFormView, BaseView
 from ..forms.user import UserSettingsForm
 
 
-class LoginView(views.LoginView):
+class LoginView(BaseView, views.LoginView):
     template_name = 'kulupulang/auth/login.jinja'
     success_url = reverse_lazy('dashboard')
 

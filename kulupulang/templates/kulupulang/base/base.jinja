@@ -4,41 +4,46 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{{ title ~ ' · ' if title else '' }}kulupulang</title>
-        <link rel="stylesheet" href="{{ static('dist/css/base.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ static('css/base.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ theme }}" type="text/css">
     </head>
     <body>
-        <header>
-            <span class="brand">kulupulang</span>
-            <nav>
-                <ul>
-                    {% if request.user.is_authenticated %}
-                        <li><a href="{{ url('dashboard') }}">dashboard</a></li>
-                        <li><a href="{{ url('batch.oven') }}">oven</a></li>
-                        <li><a href="{{ url('discussion.index') }}">disputes</a></li>
-                        <li><a href="{{ url('dictionary.index') }}">dictionary</a></li>
-                        <li class="right">{{ greeting }}, {{ request.user }}</li>
-                        <li><a href="{{ url('settings') }}">settings</a></li>
-                        <li><a href="{{ url('logout') }}">log out</a></li>
-                    {% else %}
-                        <li><a href="{{ url('login') }}">log in</a></li>
+        <div class="everything">
+            <div class="header-and-main">
+                <header>
+                    <span class="brand">kulupulang</span>
+                    <nav>
+                        <ul>
+                            {% if request.user.is_authenticated %}
+                                <li><a href="{{ url('dashboard') }}">dashboard</a></li>
+                                <li><a href="{{ url('batch.oven') }}">oven</a></li>
+                                <li><a href="{{ url('discussion.index') }}">disputes</a></li>
+                                <li><a href="{{ url('dictionary.index') }}">dictionary</a></li>
+                                <li class="right greeting">{{ greeting }}, {{ request.user }}</li>
+                                <li><a href="{{ url('settings') }}">settings</a></li>
+                                <li><a href="{{ url('logout') }}">log out</a></li>
+                            {% else %}
+                                <li><a href="{{ url('login') }}">log in</a></li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </header>
+                <main>
+                    {% if messages %}
+                        <div class="alerts">
+                            {% for message in messages %}
+                                <div class="alert {{ message.tags }}" role="alert">{{ message }}</div>
+                            {% endfor %}
+                        </div>
                     {% endif %}
-                </ul>
-            </nav>
-        </header>
-        <main>
-            {% if messages %}
-                <div class="message-container">
-                    {% for message in messages %}
-                        <div class="alert {{ message.tags }}" role="alert">{{ message }}</div>
-                    {% endfor %}
-                </div>
-            {% endif %}
-            {% block content %}
-            {% endblock content %}
-        </main>
-        <footer>
-            <p>this was coded by zee · let me know if you have a problem · <a
-                    href="https://github.com/marzusia/kulupulang">github</a></p>
-        </footer>
+                    {% block content %}
+                    {% endblock content %}
+                </main>
+            </div>
+            <footer>
+                <p>this was coded by zee · let me know if you have a problem · <a
+                        href="https://github.com/marzusia/kulupulang">github</a></p>
+            </footer>
+        </div>
     </body>
 </html>

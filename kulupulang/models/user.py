@@ -26,6 +26,11 @@ class User(AbstractUser):
         max_length=64,
         blank=True,
     )
+    theme = models.CharField(
+        help_text='the theme you want to display the site in',
+        max_length=64,
+        default='default',
+    )
 
     @property
     def display_name(self):

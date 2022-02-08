@@ -2,7 +2,7 @@
 {% set title=batch.name %}
 
 {% block content %}
-    <h2>{{ batch.name }} (batch #{{ batch.pk }})</h2>
+    <h2>{{ batch.name }}</h2>
     {% if has_edit_permission and batch.editable %}
         <p>right now, only contributors to this batch (that's you!) can make changes to this batch. it has not been submitted to the oven yet. take your time, and enjoy cooking. <a href="{{ url('batch.edit', batch=batch.pk) }}">edit batch info?</a></p>
         <p>once you're happy with the words/roots you've added to it: <a href="{{ url('batch.submit', batch=batch.pk) }}">put this batch in the oven</a></p>

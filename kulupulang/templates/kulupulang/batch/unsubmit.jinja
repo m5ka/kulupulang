@@ -3,7 +3,8 @@
 
 {% block content %}
     <h2>un-submit batch</h2>
-    <p>this will remove the batch from the oven. if it currently has any disputes, these will be removed. once un-submitted, you and other contributors will be able to edit this batch and submit it again whenever you want.</p>
+    <p>this will remove <a href="{{ batch.get_absolute_url() }}">{{ batch.name }}</a> from the oven.</p>
+    <p>if it currently has any disputes, these will be removed. once un-submitted, you and other contributors will be able to edit this batch and submit it again whenever you want.</p>
     <form action="" method="POST">
         {% csrf_token %}
         <div class="actions">

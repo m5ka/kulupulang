@@ -6,7 +6,7 @@
     {% if words %}
         <ul>
             {% for word in words %}
-                <li><a href="{{ url('dictionary.show', slug=word.slug) }}">{{ word }}</a> · {{ word.pos }} · {{ word.definition }}</li>
+                <li><a href="{{ url('dictionary.show', slug=word.slug) }}">{{ word }}</a> · <em>{{ word.pos }}</em> · {{ word.definition }}</li>
             {% endfor %}
         </ul>
     {% else %}

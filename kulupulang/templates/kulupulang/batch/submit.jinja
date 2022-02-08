@@ -3,7 +3,7 @@
 
 {% block content %}
     <h2>submit batch</h2>
-    <p>this will put batch #{{ batch.pk }} ({{ batch.name }}) to the oven.</p>
+    <p>this will put <a href="{{ batch.get_absolute_url() }}">{{ batch.name }}</a> into the oven.</p>
     <p>once in the oven, you won't be able to make further changes to the batch so be sure before you click!</p>
     <p>in the oven, anyone can raise a dispute. if it finishes cooking ({{ batch.voting_hours }} hours) without any disputes, its words and roots will take pride of place in the dictionary.</p>
     <form action="" method="POST">

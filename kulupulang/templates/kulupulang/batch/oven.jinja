@@ -8,8 +8,7 @@
         {% if batches %}
             {% for batch in batches %}
                 <li>
-                    <a href="{{ batch.get_absolute_url() }}">#{{ batch.pk }} {{ batch.name }}</a><br>
-                    submitted {{ batch.submitted_at|naturaltime }} · takes {{ batch.voting_hours }} hours to cook</li>
+                    <a href="{{ batch.get_absolute_url() }}">{{ batch.name }}</a> · {{ batch.submitted_at|naturaltime }} ({{ batch.voting_hours }} hours to cook)</li>
             {% endfor %}
         {% else %}
             <li>there are no batches in the oven right now</li>

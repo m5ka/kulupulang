@@ -2,7 +2,7 @@
 
 {% block content %}
     <h2>delete word: {{ word.headword }}</h2>
-    <p>this will delete {{ word.headword }} from <a href="{{ batch.get_absolute_url() }}">batch #{{ batch.pk }} ({{ batch.name }})</a></p>
+    <p>this will delete {{ word.headword }} from <a href="{{ batch.get_absolute_url() }}">{{ batch.name }}</a></p>
     <form action="" method="POST">
         {% csrf_token %}
         <div class="actions">

@@ -2,7 +2,7 @@
 
 {% block content %}
     <h2>{{ verb }}</h2>
-    <p>you're adding to <a href="{{ batch.get_absolute_url() }}">batch #{{ batch.pk }} ({{ batch.name }})</a></p>
+    <p>you're adding to <a href="{{ batch.get_absolute_url() }}">{{ batch.name }}</a></p>
     {% if form.errors %}
         {% for error in form.errors %}
             <div class="alert">{{ error }}</div>

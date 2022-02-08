@@ -2,8 +2,8 @@
 {% set title='resolve discussion' %}
 
 {% block content %}
-    <h2>resolve your dispute on #{{ batch.pk }} ({{ batch.name }})</h2>
-    <p>this will mark your dispute on <a href="{{ batch.get_absolute_url() }}">batch #{{ batch.pk }} ({{ batch.name }})</a> as resolved, which will place the batch back into the oven if no one else has disputed it.</p>
+    <h2>resolve your dispute on batch: {{ batch.name }}</h2>
+    <p>this will mark your dispute on <a href="{{ batch.get_absolute_url() }}">{{ batch.name }}</a> as resolved, which will place the batch back into the oven if no one else has disputed it.</p>
     <form action="" method="POST">
         {% csrf_token %}
         <div class="actions">

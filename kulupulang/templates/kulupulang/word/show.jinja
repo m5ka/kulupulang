@@ -13,7 +13,7 @@
         <p>{{ word.notes }}</p>
     {% endif %}
     <p>
-        this word is a part of <a href="{{ batch.get_absolute_url() }}">batch #{{ batch.pk }} ({{ batch.name }})</a>
+        this word is a part of <a href="{{ batch.get_absolute_url() }}">{{ batch.name }}</a>
         {% if has_edit_permission and word.editable %}
         ─ <a href="{{ url('word.edit', batch=batch.pk, word=word.pk) }}">edit</a>
         / <a href="{{ url('word.delete', batch=batch.pk, word=word.pk) }}">delete</a>

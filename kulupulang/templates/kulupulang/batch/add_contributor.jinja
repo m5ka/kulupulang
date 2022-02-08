@@ -3,6 +3,8 @@
 
 {% block content %}
     <h2>{{ verb }}</h2>
+    <p>contributors have the same permissions as the person who created the batch. they can edit the batch, add, edit and remove words and submit or un-submit the batch to the oven.</p>
+    <p>you are adding a contributor to <a href="{{ batch.get_absolute_url() }}">{{ batch.name }}</a></p>
     {% if form.errors %}
         {% for error in form.errors %}
             <div class="alert">{{ error }}</div>

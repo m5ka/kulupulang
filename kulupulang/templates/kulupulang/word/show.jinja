@@ -3,7 +3,7 @@
 {% block content %}
     <h2>{{ word.headword }}</h2>
     <strong>{{ word.get_pos_display() }}{% if word.cls %} · {{ word.get_cls_display() }}{% endif %}</strong>
-    <p>{{ word.gloss }}</p>
+    <p>{{ word.definition }}</p>
     {% if word.etymology %}
         <strong>etymology</strong>
         <p>{{ word.etymology }}</p>

@@ -11,4 +11,4 @@ class BatchForm(BaseModelForm):
 class WordForm(BaseModelForm):
     class Meta:
         model = Word
-        fields = ('headword', 'pos', 'cls', 'gloss', 'etymology', 'notes',)
+        fields = ('headword', 'pos', 'cls', 'definition', 'etymology', 'notes',)

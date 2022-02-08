@@ -80,12 +80,17 @@ class ShowBatchView(BatchMixin, BaseView):
             'batch': self.batch,
             'words': Word.objects.filter(batch=self.batch),
             'has_edit_permission': self.has_edit_permission,
-            'user_discussion': Discussion.objects.filter(
-                batch=self.batch,
-                resolved=False,
-                opened_by=self.request.user
-            ).first(),
+            'user_discussion': self.get_user_discussion(),
         }
+
+    def get_user_discussion(self):
+        if not self.request.user.is_authenticated:
+            return None
+        return Discussion.objects.filter(
+            batch=self.batch,
+            resolved=False,
+            opened_by=self.request.user
+        ).first()
 
 
 class SubmitBatchView(BatchMixin, UserPassesTestMixin, BaseView):

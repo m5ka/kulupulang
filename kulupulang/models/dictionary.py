@@ -163,17 +163,17 @@ class Word(UpdatableModel, AutoSlugMixin):
         blank=True,
         choices=WordClass.CHOICES,
     )
-    gloss = models.TextField(
+    definition = models.TextField(
         blank=False,
-        help_text='what does this word mean?',
+        help_text='what does this word mean? this will appear in the overall dictionary page with the part of speech.',
     )
     etymology = models.TextField(
         blank=True,
-        help_text='optionally, where does this word come from?',
+        help_text='optionally, where does this word come from? this will only appear on the word\'s page.',
     )
     notes = models.TextField(
         blank=True,
-        help_text='any other optional notes about this word',
+        help_text='any other optional notes about this word. this will only appear on the word\'s page.',
     )
     batch = models.ForeignKey(
         Batch,

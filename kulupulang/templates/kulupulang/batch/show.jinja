@@ -15,7 +15,7 @@
         {% endif %}
         <ul>
             {% for word in words %}
-                <li><a href="{{ word.get_absolute_url() }}">{{ word }}</a> · {{ word.gloss }}</li>
+                <li><a href="{{ word.get_absolute_url() }}">{{ word }}</a> · {{ word.definition }}</li>
             {% endfor %}
         </ul>
     {% else %}

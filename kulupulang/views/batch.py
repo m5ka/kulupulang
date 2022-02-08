@@ -107,7 +107,7 @@ class ShowBatchView(BatchMixin, BaseView):
         return {
             **super().get_context_data(**kwargs),
             'batch': self.batch,
-            'words': Word.objects.filter(batch=self.batch),
+            'words': Word.objects.filter(batch=self.batch).order_by('headword'),
             'has_edit_permission': self.has_edit_permission,
             'user_discussion': self.get_user_discussion(),
         }

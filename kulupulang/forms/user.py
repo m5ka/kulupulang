@@ -28,3 +28,9 @@ class UserSelectForm(forms.Form):
 
         data['user'] = user
         return data
+
+
+class UserSettingsForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('preferred_name',)

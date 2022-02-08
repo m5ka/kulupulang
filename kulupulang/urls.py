@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views.auth import LoginView, LogoutView
+from .views.auth import SettingsView, LoginView, LogoutView
 from .views.batch import (
     AddContributorBatchView,
     EditBatchView,
@@ -36,6 +36,7 @@ urlpatterns = [
     path('dashboard', DashboardView.as_view(), name='dashboard'),
     path('dictionary', IndexDictionaryView.as_view(), name='dictionary.index'),
     path('dictionary/<str:slug>', ShowDictionaryView.as_view(), name='dictionary.show'),
+    path('settings', SettingsView.as_view(), name='settings'),
     path('logout', LogoutView.as_view(), name='logout'),
     path('', LoginView.as_view(), name='login'),
 ]

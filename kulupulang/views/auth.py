@@ -1,6 +1,12 @@
+from django.contrib import messages
 from django.contrib.auth import views
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http.response import HttpResponseRedirect
-from django.urls import reverse_lazy
+from django.shortcuts import redirect
+from django.urls import reverse, reverse_lazy
+
+from .base import BaseFormView
+from ..forms.user import UserSettingsForm
 
 
 class LoginView(views.LoginView):
@@ -21,3 +27,16 @@ class LoginView(views.LoginView):
 
 class LogoutView(views.LogoutView):
     next_page = 'login'
+
+
+class SettingsView(LoginRequiredMixin, BaseFormView):
+    template_name = 'kulupulang/auth/settings.jinja'
+    form_class = UserSettingsForm
+
+    def form_valid(self, form):
+        form.instance.save()
+        messages.success(self.request, 'your settings were saved successfully')
+        return redirect(reverse('settings'))
+
+    def get_form(self):
+        return UserSettingsForm(instance=self.request.user,  **self.get_form_kwargs())

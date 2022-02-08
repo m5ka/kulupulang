@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 class User(AbstractUser):
     username = models.CharField(
-        help_text=_('This is the unique identifier you will to log in. It may only contain letters and numbers.'),
+        help_text='this is the unique identifier you will to log in. it may only contain letters and numbers.',
         max_length=32,
         unique=True,
         db_index=True,
@@ -15,16 +15,14 @@ class User(AbstractUser):
     )
     email = models.EmailField(
         verbose_name=_('Email address'),
-        help_text=_(
-            'This should be your email address. '
-            'Make sure it\'s a valid email address and that you have access to it.'
-        ),
+        help_text='this is your email address. make sure you have access to it!',
         max_length=128,
         blank=True,
     )
     preferred_name = models.CharField(
         verbose_name=_('Display name'),
-        help_text=_('This name will appear instead of your username on the site.'),
+        help_text='this name will appear on the site in place of your username. leave it blank to revert to your '
+                  'username being used across the site.',
         max_length=64,
         blank=True,
     )

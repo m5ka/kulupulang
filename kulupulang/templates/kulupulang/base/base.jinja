@@ -17,6 +17,7 @@
                         <li><a href="{{ url('discussion.index') }}">disputes</a></li>
                         <li><a href="{{ url('dictionary.index') }}">dictionary</a></li>
                         <li class="right">{{ greeting }}, {{ request.user }}</li>
+                        <li><a href="{{ url('settings') }}">settings</a></li>
                         <li><a href="{{ url('logout') }}">log out</a></li>
                     {% else %}
                         <li><a href="{{ url('login') }}">log in</a></li>
@@ -25,6 +26,13 @@
             </nav>
         </header>
         <main>
+            {% if messages %}
+                <div class="message-container">
+                    {% for message in messages %}
+                        <div class="alert {{ message.tags }}" role="alert">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
             {% block content %}
             {% endblock content %}
         </main>

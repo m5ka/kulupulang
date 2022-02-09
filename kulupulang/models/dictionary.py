@@ -1,4 +1,5 @@
 from datetime import timedelta
+from math import ceil
 
 from django.db import models, transaction
 from django.utils import timezone
@@ -38,6 +39,9 @@ class Batch(UpdatableModel):
     discussion_count = models.IntegerField(
         default=0,
     )
+    hours_left_before_discussion = models.IntegerField(
+        default=0,
+    )
     passed = models.BooleanField(
         default=False,
     )
@@ -73,7 +77,9 @@ class Batch(UpdatableModel):
         if self.discussion_count > 0:
             self.discussion_count -= 1
             if self.discussion_count == 0:
-                self.submitted_at = timezone.now()
+                hours = self.hours_left_before_discussion if self.hours_left_before_discussion >= 1 else 1
+                self.submitted_at = timezone.now() - timedelta(hours=self.voting_hours - hours)
+                self.hours_left_before_discussion = 0
             self.save()
 
     @property
@@ -102,6 +108,9 @@ class Batch(UpdatableModel):
                 batch=self,
                 opened_by=user,
             )
+            if self.hours_left_before_discussion == 0:
+                time_elapsed = timezone.now() - self.submitted_at
+                self.hours_left_before_discussion = ceil(time_elapsed.total_seconds() / 60 / 60)
             self.discussion_count += 1
             self.save()
 

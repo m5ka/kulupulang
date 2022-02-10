@@ -4,12 +4,19 @@
 {% block content %}
     <h2>dictionary</h2>
     {% if words %}
-        <ul class="dictionary-index">
+        <ul class="dictionary">
+            <li class="labels">
+                <span>headword</span>
+                <span>pos</span>
+                <span>definition</span>
+            </li>
             {% for word in words %}
                 <li>
-                    <a class="dictionary-index-link" href="{{ url('dictionary.show', slug=word.slug) }}">{{ word }}</a>
-                    · <span class="dictionary-index-pos">{{ word.pos }}</span>
-                    · <span class="dictionary-index-definition">{{ word.definition }}</span>
+                    <a href="{{ url('dictionary.show', slug=word.slug) }}">
+                        <span class="dictionary-headword">{{ word.headword }}</span>
+                        <span class="dictionary-pos">{{ word.get_pos_display() }}</span>
+                        <span class="dictionary-definition">{{ word.definition }}</span>
+                    </a>
                 </li>
             {% endfor %}
         </ul>

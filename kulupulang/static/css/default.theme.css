@@ -198,8 +198,56 @@ main .actions input[type=submit]:not(:last-child) {
     margin-right: 6px;
 }
 
-main .dictionary-index .dictionary-index-pos {
+main ul.dictionary {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    align-items: stretch;
+}
+
+main ul.dictionary li {
+    display: contents;
+}
+
+main ul.dictionary li a {
+    display: contents;
+}
+
+main ul.dictionary li a > span {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    padding: 3px 6px;
+}
+
+main ul.dictionary li:hover a > span {
+    background: #f6f6f6;
+}
+
+main ul.dictionary li.labels > span {
+    display: block;
+    padding: 5px 6px;
+    font-size: .875rem;
+    color: #444;
+    font-weight: bold;
+}
+
+main ul.dictionary li a .dictionary-headword {
+    color: var(--pink);
+    text-decoration: none;
+}
+
+main ul.dictionary li a .dictionary-pos {
+    color: #777;
+    text-decoration: none;
     font-style: italic;
+    font-size: .875rem;
+}
+
+main ul.dictionary li a .dictionary-definition {
+    color: #222;
+    text-decoration: none;
 }
 
 footer {

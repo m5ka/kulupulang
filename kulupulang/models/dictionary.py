@@ -57,6 +57,7 @@ class Batch(UpdatableModel):
     )
     contributors = models.ManyToManyField(
         User,
+        blank=True,
         related_name='batch_contribution_set',
     )
     voting_from = models.DateTimeField(

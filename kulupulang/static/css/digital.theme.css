@@ -208,8 +208,51 @@ main .actions input[type=submit]:not(:last-child) {
     margin-right: 6px;
 }
 
-main .dictionary-index .dictionary-index-pos {
-    font-style: italic;
+main ul.dictionary {
+    list-style: none;
+    padding: 0;
+    margin-top: .5rem;
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    align-items: stretch;
+    border: 3px double var(--alien-green);
+}
+
+main ul.dictionary li {
+    display: contents;
+    position: relative;
+}
+
+main ul.dictionary li a {
+    display: contents;
+}
+
+main ul.dictionary li a > span {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    padding: 3px 6px;
+    text-decoration: none;
+}
+
+main ul.dictionary li:not(:last-child) a > span {
+    border-bottom: 1px solid var(--alien-green);
+}
+
+main ul.dictionary li:hover::before {
+    content: '•';
+    position: absolute;
+    left: -.5rem;
+}
+
+main ul.dictionary li:hover a > span {
+    color: var(--muted-alien-green);
+}
+
+main ul.dictionary li.labels > span {
+    display: block;
+    padding: 4px 6px;
+    border-bottom: 3px double var(--alien-green);
 }
 
 footer {

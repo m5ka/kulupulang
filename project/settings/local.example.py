@@ -77,3 +77,12 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+
+# Public site URL
+
+PUBLIC_URL = 'http://localhost:8000/'
+
+# Discord webhook
+
+DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/abc/xyz'
+DISCORD_WEBHOOK_COLOR = 'A0FB79'

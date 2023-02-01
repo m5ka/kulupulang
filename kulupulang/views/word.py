@@ -11,11 +11,11 @@ from ..models.dictionary import Word
 class WordMixin:
     @cached_property
     def word(self):
-        return get_object_or_404(Word, batch=self.batch, pk=self.kwargs.get('word'))
+        return get_object_or_404(Word, batch=self.batch, pk=self.kwargs.get("word"))
 
 
 class DeleteWordView(BatchMixin, WordMixin, UserPassesTestMixin, BaseView):
-    template_name = 'kulupulang/word/delete.jinja'
+    template_name = "kulupulang/word/delete.jinja"
     form_class = WordForm
 
     def post(self, request, **kwargs):
@@ -25,8 +25,8 @@ class DeleteWordView(BatchMixin, WordMixin, UserPassesTestMixin, BaseView):
     def get_context_data(self, **kwargs):
         return {
             **super().get_context_data(**kwargs),
-            'batch': self.batch,
-            'word': self.word,
+            "batch": self.batch,
+            "word": self.word,
         }
 
     def test_func(self):
@@ -34,7 +34,7 @@ class DeleteWordView(BatchMixin, WordMixin, UserPassesTestMixin, BaseView):
 
 
 class EditWordView(BatchMixin, WordMixin, UserPassesTestMixin, BaseFormView):
-    template_name = 'kulupulang/word/form.jinja'
+    template_name = "kulupulang/word/form.jinja"
     form_class = WordForm
 
     def form_valid(self, form):
@@ -44,7 +44,7 @@ class EditWordView(BatchMixin, WordMixin, UserPassesTestMixin, BaseFormView):
     def get_context_data(self, **kwargs):
         return {
             **super().get_context_data(**kwargs),
-            'batch': self.batch,
+            "batch": self.batch,
         }
 
     def get_form(self):
@@ -55,13 +55,13 @@ class EditWordView(BatchMixin, WordMixin, UserPassesTestMixin, BaseFormView):
 
     @property
     def verb(self):
-        return 'edit word: %s' % self.word.headword
+        return "edit word: %s" % self.word.headword
 
 
 class NewWordView(BatchMixin, UserPassesTestMixin, BaseFormView):
-    template_name = 'kulupulang/word/form.jinja'
+    template_name = "kulupulang/word/form.jinja"
     form_class = WordForm
-    verb = 'new word'
+    verb = "new word"
 
     def form_valid(self, form):
         form.instance.batch = self.batch
@@ -72,7 +72,7 @@ class NewWordView(BatchMixin, UserPassesTestMixin, BaseFormView):
     def get_context_data(self, **kwargs):
         return {
             **super().get_context_data(**kwargs),
-            'batch': self.batch,
+            "batch": self.batch,
         }
 
     def test_func(self):
@@ -80,12 +80,12 @@ class NewWordView(BatchMixin, UserPassesTestMixin, BaseFormView):
 
 
 class ShowWordView(BatchMixin, WordMixin, BaseView):
-    template_name = 'kulupulang/word/show.jinja'
+    template_name = "kulupulang/word/show.jinja"
 
     def get_context_data(self, **kwargs):
         return {
             **super().get_context_data(**kwargs),
-            'batch': self.batch,
-            'word': self.word,
-            'has_edit_permission': self.has_edit_permission,
+            "batch": self.batch,
+            "word": self.word,
+            "has_edit_permission": self.has_edit_permission,
         }

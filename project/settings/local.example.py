@@ -20,26 +20,26 @@ DEBUG = True
 # Secret Key
 # https://docs.djangoproject.com/en/3.2/ref/settings/#secret-key
 
-SECRET_KEY = 'insecure-little-cat-hTYWR0eTIzZzttIHlqY2I0IDQ1dA=='
+SECRET_KEY = "insecure-little-cat-hTYWR0eTIzZzttIHlqY2I0IDQ1dA=="
 
 
 # Allowed hosts
 # https://docs.djangoproject.com/en/3.2/ref/settings/#allowed-hosts
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ["localhost"]
 
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'name',
-        'USER': 'user',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '3306',
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "name",
+        "USER": "user",
+        "PASSWORD": "password",
+        "HOST": "localhost",
+        "PORT": "3306",
     }
 }
 
@@ -48,9 +48,9 @@ DATABASES = {
 # https://docs.djangoproject.com/en/3.2/topics/cache/
 
 CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
-        'LOCATION': '127.0.0.1:11211',
+    "default": {
+        "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
+        "LOCATION": "127.0.0.1:11211",
     }
 }
 
@@ -58,31 +58,31 @@ CACHES = {
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'kulupulang', 'static')
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "kulupulang", "static")
 
 
 # Media root for uploaded files
 # https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-MEDIA_ROOT
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = '/opt/kulupulang/media'
+MEDIA_URL = "/media/"
+MEDIA_ROOT = "/opt/kulupulang/media"
 
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-gb'
-TIME_ZONE = 'UTC'
+LANGUAGE_CODE = "en-gb"
+TIME_ZONE = "UTC"
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
 # Public site URL
 
-PUBLIC_URL = 'http://localhost:8000/'
+PUBLIC_URL = "http://localhost:8000/"
 
 # Discord webhook
 
-DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/abc/xyz'
-DISCORD_WEBHOOK_COLOR = 'A0FB79'
+DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/abc/xyz"
+DISCORD_WEBHOOK_COLOR = "A0FB79"

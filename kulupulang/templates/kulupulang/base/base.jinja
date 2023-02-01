@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{{ title ~ ' · ' if title else '' }}kulupulang</title>
+        <title>{{ title ~ ' · ' if title else '' }}il makkulu</title>
         <link rel="stylesheet" href="{{ static('css/base.css') }}" type="text/css">
         <link rel="stylesheet" href="{{ theme }}" type="text/css">
     </head>
@@ -11,7 +11,7 @@
         <div class="everything">
             <div class="header-and-main">
                 <header>
-                    <span class="brand">kulupulang</span>
+                    <span class="brand">il makkulu.</span>
                     <nav>
                         <ul>
                             {% if request.user.is_authenticated %}
@@ -19,6 +19,7 @@
                                 <li><a href="{{ url('batch.oven') }}">oven</a></li>
                                 <li><a href="{{ url('discussion.index') }}">disputes</a></li>
                                 <li><a href="{{ url('dictionary.index') }}">dictionary</a></li>
+                                <li><a href="{{ url('batch.index') }}">batches</a></li>
                                 <li class="right greeting">{{ greeting }}, {{ request.user }}</li>
                                 <li><a href="{{ url('settings') }}">settings</a></li>
                                 <li><a href="{{ url('logout') }}">log out</a></li>

@@ -1,0 +1,17 @@
+{% extends "kulupulang/base/base.jinja" %}
+{% set title='batches' %}
+
+{% block content %}
+    <h2>batches</h2>
+    {% if batches %}
+        <ul>
+            {% for batch in batches %}
+                <li>
+                    <a href="{{ batch.get_absolute_url() }}">{{ batch.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>there are no batches that have baked yet :(</p>
+    {% endif %}
+{% endblock %}

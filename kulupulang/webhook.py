@@ -18,12 +18,12 @@ def _send_webhook(title=None, description=None, url=None):
 
 def send_batch_passed_webhook(batch=None):
     if not batch:
-        raise ValueError('A batch must be given')
+        raise ValueError("A batch must be given")
     _send_webhook(
-        title='Batch passed',
-        description=batch.name,
+        title=f"Batch passed: {batch.name}",
+        description=batch.description if batch.description else None,
         url=urljoin(
             settings.PUBLIC_URL,
             batch.get_absolute_url(),
-        )
+        ),
     )

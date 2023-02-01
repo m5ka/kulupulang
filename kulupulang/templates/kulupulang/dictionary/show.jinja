@@ -4,7 +4,7 @@
 {% block content %}
     {% for word in words %}
         <div class="dictionary-entry">
-            <h3>{{ word.headword }}</h3>
+            <h1>{{ word.headword }}</h1>
             <strong>{{ word.get_pos_display() }}{% if word.cls %} · {{ word.get_cls_display() }}{% endif %}</strong>
             <p>{{ word.definition }}</p>
             {% if word.etymology %}
@@ -15,6 +15,7 @@
                 <strong>notes</strong>
                 <p>{{ word.notes }}</p>
             {% endif %}
+            <p class="small">part of the batch <a href="{{ word.batch.get_absolute_url() }}">{{ word.batch.name }}</a></p>
         </div>
     {% endfor %}
 {% endblock %}

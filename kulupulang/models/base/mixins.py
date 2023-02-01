@@ -3,8 +3,8 @@ from slugify import slugify
 
 
 class AutoSlugMixin:
-    auto_slug_field = 'slug'
-    auto_slug_populate_from = 'name'
+    auto_slug_field = "slug"
+    auto_slug_populate_from = "name"
 
     def hydrate_slug(self):
         existing = getattr(self, self.auto_slug_field)

@@ -4,9 +4,9 @@ from .user import User
 
 __all__ = [
     # dictionary
-    'Batch',
-    'Discussion',
-    'Word',
+    "Batch",
+    "Discussion",
+    "Word",
     # user
-    'User',
+    "User",
 ]

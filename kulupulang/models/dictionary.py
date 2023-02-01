@@ -15,6 +15,9 @@ class BatchManager(models.Manager):
     def in_oven(self):
         return self.filter(submitted=True, discussion_count=0, passed=False)
 
+    def passed(self):
+        return self.filter(passed=True)
+
     def flagged(self):
         return self.filter(submitted=True, discussion_count__gt=0)
 
@@ -23,11 +26,11 @@ class Batch(UpdatableModel):
     name = models.CharField(
         db_index=True,
         max_length=255,
-        help_text='a nice little name for this batch you\'re cooking up. any name will do.',
+        help_text="a nice little name for this batch you're cooking up. any name will do.",
     )
     description = models.TextField(
         blank=True,
-        help_text='this is optional, but if you feel like giving a little description then hey that\'s totally cool',
+        help_text="this is optional, but if you feel like giving a little description then hey that's totally cool",
     )
     submitted = models.BooleanField(
         default=False,
@@ -53,19 +56,19 @@ class Batch(UpdatableModel):
         User,
         on_delete=models.SET_NULL,
         null=True,
-        related_name='batch_set',
+        related_name="batch_set",
     )
     contributors = models.ManyToManyField(
         User,
         blank=True,
-        related_name='batch_contribution_set',
+        related_name="batch_contribution_set",
     )
     voting_from = models.DateTimeField(
         default=timezone.now,
     )
     voting_hours = models.IntegerField(
         default=48,
-        help_text='how many hours should this stay in the oven before it\'s cooked and in the dictionary?',
+        help_text="how many hours should this stay in the oven before it's cooked and in the dictionary?",
     )
 
     objects = BatchManager()
@@ -78,8 +81,14 @@ class Batch(UpdatableModel):
         if self.discussion_count > 0:
             self.discussion_count -= 1
             if self.discussion_count == 0:
-                hours = self.hours_left_before_discussion if self.hours_left_before_discussion >= 1 else 1
-                self.submitted_at = timezone.now() - timedelta(hours=self.voting_hours - hours)
+                hours = (
+                    self.hours_left_before_discussion
+                    if self.hours_left_before_discussion >= 1
+                    else 1
+                )
+                self.submitted_at = timezone.now() - timedelta(
+                    hours=self.voting_hours - hours
+                )
                 self.hours_left_before_discussion = 0
             self.save()
 
@@ -88,7 +97,7 @@ class Batch(UpdatableModel):
         return not self.submitted and not self.passed
 
     def get_absolute_url(self):
-        return reverse('batch.show', kwargs={'batch': self.pk})
+        return reverse("batch.show", kwargs={"batch": self.pk})
 
     def is_editable_by(self, user):
         return self.created_by == user or user in self.contributors.all()
@@ -102,7 +111,9 @@ class Batch(UpdatableModel):
         Word.objects.filter(batch=self).update(passed=True, passed_at=timezone.now())
 
     def raise_discussion(self, user):
-        if Discussion.objects.filter(batch=self, resolved=False, opened_by=user).exists():
+        if Discussion.objects.filter(
+            batch=self, resolved=False, opened_by=user
+        ).exists():
             return
         with transaction.atomic():
             Discussion.objects.create(
@@ -111,7 +122,9 @@ class Batch(UpdatableModel):
             )
             if self.hours_left_before_discussion == 0:
                 time_elapsed = timezone.now() - self.submitted_at
-                self.hours_left_before_discussion = ceil(time_elapsed.total_seconds() / 60 / 60)
+                self.hours_left_before_discussion = ceil(
+                    time_elapsed.total_seconds() / 60 / 60
+                )
             self.discussion_count += 1
             self.save()
 
@@ -158,7 +171,7 @@ class Word(UpdatableModel, AutoSlugMixin):
         db_index=True,
         max_length=255,
         blank=False,
-        help_text='this is the word itself.',
+        help_text="this is the word itself.",
     )
     slug = models.CharField(
         max_length=255,
@@ -177,15 +190,15 @@ class Word(UpdatableModel, AutoSlugMixin):
     )
     definition = models.TextField(
         blank=False,
-        help_text='what does this word mean? this will appear in the overall dictionary page with the part of speech.',
+        help_text="what does this word mean? this will appear in the overall dictionary page with the part of speech.",
     )
     etymology = models.TextField(
         blank=True,
-        help_text='optionally, where does this word come from? this will only appear on the word\'s page.',
+        help_text="optionally, where does this word come from? this will only appear on the word's page.",
     )
     notes = models.TextField(
         blank=True,
-        help_text='any other optional notes about this word. this will only appear on the word\'s page.',
+        help_text="any other optional notes about this word. this will only appear on the word's page.",
     )
     batch = models.ForeignKey(
         Batch,
@@ -205,14 +218,14 @@ class Word(UpdatableModel, AutoSlugMixin):
         null=True,
     )
 
-    auto_slug_populate_from = 'headword'
+    auto_slug_populate_from = "headword"
 
     @property
     def editable(self):
         return not self.passed and self.batch.editable
 
     def get_absolute_url(self):
-        return reverse('word.show', kwargs={'batch': self.batch.pk, 'word': self.pk})
+        return reverse("word.show", kwargs={"batch": self.batch.pk, "word": self.pk})
 
     def __str__(self):
         return self.headword

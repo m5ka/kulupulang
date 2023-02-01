@@ -4,13 +4,8 @@ from django.utils.translation import gettext_lazy as _
 
 
 class UpdatableModel(models.Model):
-    updated_at = models.DateTimeField(
-        auto_now=True
-    )
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        db_index=True
-    )
+    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
 
     class Meta:
         abstract = True

@@ -7,29 +7,29 @@ from django.utils.translation import gettext_lazy as _
 
 class User(AbstractUser):
     username = models.CharField(
-        help_text='this is the unique identifier you will to log in. it may only contain letters and numbers.',
+        help_text="this is the unique identifier you will to log in. it may only contain letters and numbers.",
         max_length=32,
         unique=True,
         db_index=True,
         validators=[validate_slug, MinLengthValidator(3)],
     )
     email = models.EmailField(
-        verbose_name=_('Email address'),
-        help_text='this is your email address. make sure you have access to it!',
+        verbose_name=_("Email address"),
+        help_text="this is your email address. make sure you have access to it!",
         max_length=128,
         blank=True,
     )
     preferred_name = models.CharField(
-        verbose_name=_('Display name'),
-        help_text='this name will appear on the site in place of your username. leave it blank to revert to your '
-                  'username being used across the site.',
+        verbose_name=_("Display name"),
+        help_text="this name will appear on the site in place of your username. leave it blank to revert to your "
+        "username being used across the site.",
         max_length=64,
         blank=True,
     )
     theme = models.CharField(
-        help_text='the theme you want to display the site in',
+        help_text="the theme you want to display the site in",
         max_length=64,
-        default='default',
+        default="default",
     )
 
     @property
@@ -37,7 +37,7 @@ class User(AbstractUser):
         return self.preferred_name or self.username
 
     def get_absolute_url(self):
-        return reverse('profile.show', kwargs={'profile': self.username})
+        return reverse("profile.show", kwargs={"profile": self.username})
 
     def __str__(self):
         return self.display_name

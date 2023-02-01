@@ -1,6 +1,7 @@
 {% extends "kulupulang/base/base.jinja" %}
 
 {% block content %}
+    <div class="alert"><strong>note!</strong> this word hasn't baked yet, so this is just a draft.</div><br>
     <h2>{{ word.headword }}</h2>
     <strong>{{ word.get_pos_display() }}{% if word.cls %} · {{ word.get_cls_display() }}{% endif %}</strong>
     <p>{{ word.definition }}</p>

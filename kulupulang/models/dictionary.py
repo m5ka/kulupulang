@@ -225,6 +225,8 @@ class Word(UpdatableModel, AutoSlugMixin):
         return not self.passed and self.batch.editable
 
     def get_absolute_url(self):
+        if self.passed:
+            return reverse("dictionary.show", kwargs={"slug": self.slug})
         return reverse("word.show", kwargs={"batch": self.batch.pk, "word": self.pk})
 
     def __str__(self):

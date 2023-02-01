@@ -22,16 +22,8 @@ class UserSelectForm(forms.Form):
 
     def clean(self):
         data = self.cleaned_data
-        if "user" not in data.keys():
+        if "user" not in data.keys() or not data["user"]:
             raise forms.ValidationError("you must specify a user")
-
-        user = User.objects.filter(username=data["user"]).first()
-        if not user:
-            raise forms.ValidationError(
-                "that user somehow doesn't exist... something must have gone wrong."
-            )
-
-        data["user"] = user
         return data
 
 

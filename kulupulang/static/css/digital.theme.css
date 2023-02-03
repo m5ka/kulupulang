@@ -3,14 +3,20 @@
     --default-font-stack: monospace;
     --heading-font-stack: var(--default-font-stack);
 
+    --black: #222;
     --alien-green: #44c71f;
     --muted-alien-green: #84d971;
 }
 
+::selection {
+    background: var(--alien-green);
+    color: var(--black);
+}
+
 body {
     font-family: var(--default-font-stack);
-    background: #222;
-    padding-top: 48px;
+    background: var(--black);
+    padding-top: 24px;
     padding-bottom: 36px;
     font-size: 130%;
 }
@@ -21,7 +27,6 @@ body {
 }
 
 .header-and-main {
-    border: 2px solid var(--alien-green);
     color: var(--alien-green);
 }
 
@@ -36,23 +41,25 @@ header .brand {
 }
 
 header nav ul {
-    list-style-type: none;
+    list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
-    flex-flow: row wrap;
-    align-items: center;
+    flex-flow: column nowrap;
 }
 
 header nav ul li:not(:last-child) {
-    margin-right: 6px;
+    margin-bottom: 6px;
 }
 
 header nav ul li.right {
-    margin-left: auto;
+    margin-top: 8px;
 }
 
 header nav ul li a {
+    width: 100%;
+    text-align: center;
+    font-size: .875rem;
     display: inline-block;
     border: 1px solid var(--alien-green);
     color: var(--alien-green);
@@ -188,6 +195,12 @@ main form .actions {
     margin-top: 12px;
 }
 
+main form.search {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    margin-bottom: .75rem;
+}
+
 main section:not(:first-child) {
     margin: .75rem 0;
 }
@@ -202,10 +215,20 @@ main .actions {
     align-items: center;
 }
 
+main .large {
+    font-size: 1.2rem;
+}
+
 main .actions button:not(:last-child),
 main .actions .button:not(:last-child),
 main .actions input[type=submit]:not(:last-child) {
     margin-right: 6px;
+}
+
+main .dictionary-entry:not(:last-child) {
+    border-bottom: 1px solid var(--alien-green);
+    padding-bottom: 14px;
+    margin-bottom: 14px;
 }
 
 main ul.dictionary {
@@ -264,4 +287,29 @@ footer {
 
 footer a {
     color: var(--alien-green);
+}
+
+@media (min-width: 768px) {
+    body {
+        padding-top: 48px;
+    }
+
+    .header-and-main {
+        border: 2px solid var(--alien-green);
+    }
+
+    header nav ul {
+        flex-flow: row wrap;
+        align-items: center;
+    }
+
+    header nav ul li:not(:last-child) {
+        margin-right: 6px;
+        margin-bottom: 0;
+    }
+
+    header nav ul li.right {
+        margin-left: auto;
+        margin-top: 0;
+    }
 }

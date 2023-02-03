@@ -6,11 +6,17 @@
     --heading-font-stack: 'Bitter', 'Open Sans', Helvetica, sans-serif;
 
     --pink: #c73784;
+    --dark-pink: #b4156a;
 
     --button-border-radius: 3px;
 
     --max-width: 864px;
-    --header-inset-width: 48px;
+    --mobile-padding: 12px;
+}
+
+::selection {
+    background-color: var(--dark-pink);
+    color: #fff;
 }
 
 body {
@@ -30,21 +36,21 @@ header .brand {
     color: #fff;
     max-width: var(--max-width);
     margin: 0 auto;
+    padding: 0 var(--mobile-padding);
 }
 
 header nav {
     background: #fff;
     border-bottom: 1px solid var(--pink);
+    padding: 0 var(--mobile-padding);
 }
 
 header nav ul {
-    list-style-type: none;
-    padding: 4px 0;
-    max-width: var(--max-width);
-    margin: 0 auto;
+    list-style: none;
+    padding: 6px 0 10px 0;
     display: flex;
-    flex-flow: row wrap;
-    align-items: center;
+    flex-flow: column nowrap;
+    margin: 0;
 }
 
 header nav ul li:not(:last-child) {
@@ -52,7 +58,7 @@ header nav ul li:not(:last-child) {
 }
 
 header nav ul li.right {
-    margin-left: auto;
+    margin-top: 8px;
 }
 
 header nav ul li a {
@@ -67,7 +73,7 @@ header nav ul li a {
 main {
     max-width: var(--max-width);
     margin: 0 auto;
-    padding-top: 28px;
+    padding: 28px var(--mobile-padding) 0 var(--mobile-padding);
 }
 
 main .alerts {
@@ -341,4 +347,30 @@ footer {
 
 footer a {
     color: var(--pink);
+}
+
+@media (min-width: 768px) {
+    header .brand {
+        padding: 0;
+    }
+
+    header nav {
+        padding: 0;
+    }
+
+    header nav ul {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        flex-flow: row wrap;
+        padding: 4px 0;
+    }
+
+    header nav ul li.right {
+        margin-top: 0;
+        margin-left: auto;
+    }
+
+    main {
+        padding: 28px 0 0 0;
+    }
 }

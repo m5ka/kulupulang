@@ -74,8 +74,7 @@ class Batch(UpdatableModel):
     objects = BatchManager()
 
     def check_passed(self):
-        voting_end = self.voting_from + timedelta(hours=self.voting_hours)
-        return not (self.discussion_count > 0 or timezone.now() < voting_end)
+        return self.discussion_count == 0 and timezone.now() >= self.voting_end
 
     def decrement_discussion_count(self):
         if self.discussion_count > 0:
@@ -139,6 +138,10 @@ class Batch(UpdatableModel):
         self.discussion_count = 0
         self.submitted = False
         self.save()
+
+    @property
+    def voting_end(self):
+        return self.voting_from + timedelta(hours=self.voting_hours)
 
     def __str__(self):
         return self.name

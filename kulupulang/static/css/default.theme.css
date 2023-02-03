@@ -18,24 +18,33 @@ body {
     background: #fcfcfc;
 }
 
+header {
+    background: var(--pink);
+    padding: 38px 0 0 0;
+}
+
 header .brand {
-    display: block;
     font-size: 1.75rem;
     font-weight: 600;
     font-family: var(--heading-font-stack);
-    background: var(--pink);
     color: #fff;
-    padding: 38px var(--header-inset-width) 0 var(--header-inset-width);
+    max-width: var(--max-width);
+    margin: 0 auto;
+}
+
+header nav {
+    background: #fff;
+    border-bottom: 1px solid var(--pink);
 }
 
 header nav ul {
     list-style-type: none;
-    padding: 4px var(--header-inset-width);
-    margin: 0;
+    padding: 4px 0;
+    max-width: var(--max-width);
+    margin: 0 auto;
     display: flex;
     flex-flow: row wrap;
     align-items: center;
-    border-bottom: 1px solid var(--pink);
 }
 
 header nav ul li:not(:last-child) {
@@ -67,6 +76,21 @@ main .alerts {
 
 main .small {
     font-size: .895rem;
+}
+
+main .large {
+    font-size: 1.2rem;
+}
+
+main .mt {
+    margin-top: 12px;
+}
+
+main .pages {
+    display: flex;
+    flex-flow: row nowrap;
+    column-gap: 4px;
+    padding-bottom: 16px;
 }
 
 main .alerts .alert {
@@ -113,6 +137,18 @@ main button, main .button {
     outline: none;
     cursor: pointer;
     text-decoration: none;
+    padding: 1px 11px 2px 11px;
+}
+
+main button[disabled], main .button[disabled] {
+    border-color: #aaa;
+    color: #777;
+    cursor: default;
+}
+
+main button[disabled]:active,
+main .button[disabled]:active {
+    border-width: 1px 1px 3px 1px;
     padding: 1px 11px 2px 11px;
 }
 
@@ -190,6 +226,12 @@ main form .field .help_text {
 main form .actions {
     grid-column: 2;
     margin-top: 12px;
+}
+
+main form.search {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    margin-bottom: .75rem;
 }
 
 main section:not(:first-child) {

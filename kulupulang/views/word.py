@@ -51,6 +51,8 @@ class EditWordView(BatchMixin, WordMixin, UserPassesTestMixin, BaseFormView):
         return WordForm(instance=self.word, **self.get_form_kwargs())
 
     def test_func(self):
+        if self.request.user.is_superuser:
+            return True
         return self.has_edit_permission and self.word.editable
 
     @property

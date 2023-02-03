@@ -6,16 +6,21 @@
         <div class="dictionary-entry">
             <h1>{{ word.headword }}</h1>
             <strong>{{ word.get_pos_display() }}{% if word.cls %} · {{ word.get_cls_display() }}{% endif %}</strong>
-            <p>{{ word.definition }}</p>
+            <p class="large">{{ word.definition }}</p>
             {% if word.etymology %}
-                <strong>etymology</strong>
+                <strong class="small">etymology</strong>
                 <p>{{ word.etymology }}</p>
             {% endif %}
             {% if word.notes %}
-                <strong>notes</strong>
+                <strong class="small">notes</strong>
                 <p>{{ word.notes }}</p>
             {% endif %}
-            <p class="small">part of the batch <a href="{{ word.batch.get_absolute_url() }}">{{ word.batch.name }}</a></p>
+            <p class="small mt">
+                part of the batch <a href="{{ word.batch.get_absolute_url() }}">{{ word.batch.name }}</a>
+                {% if request.user and request.user.is_superuser %}
+                    — <a href="{{ url('word.edit', batch=word.batch.id, word=word.id) }}">edit</a>
+                {% endif %}
+            </p>
         </div>
     {% endfor %}
 {% endblock %}

@@ -2,15 +2,36 @@
 {% set title='dictionary' %}
 
 {% block content %}
-    <h2>dictionary</h2>
-    {% if words %}
+    <h2>dictionary ({{ page.paginator.count }})</h2>
+    {% if page %}
+        <form action="" method="GET" class="search">
+            <div class="field">
+                <input type="text" value="{{search}}" name="search" placeholder="search">
+            </div>
+            <div class="field">
+                <select name="by">
+                    <option value="headword"{% if by == "headword" %} selected{% endif %}>makkulu</option>
+                    <option value="definition"{% if by == "definition" %} selected{% endif %}>definition</option>
+                </select>
+            </div>
+            <button class="button">search</button>
+        </form>
+        <div class="pages">
+            {% for i in range(page.paginator.num_pages) %}
+                {% if i+1 == page.number %}
+                    <button class="button small" disabled>{{ i+1 }}</button>
+                {% else %}
+                    <a class="button small" href="?search={{search}}&by={{by}}&page={{i+1}}">{{ i+1 }}</a>
+                {% endif %}
+            {% endfor %}
+        </div>
         <ul class="dictionary">
             <li class="labels">
                 <span>headword</span>
                 <span>pos</span>
                 <span>definition</span>
             </li>
-            {% for word in words %}
+            {% for word in page %}
                 <li>
                     <a href="{{ url('dictionary.show', slug=word.slug) }}">
                         <span class="dictionary-headword">{{ word.headword }}</span>

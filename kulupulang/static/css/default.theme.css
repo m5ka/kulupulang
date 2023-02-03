@@ -212,6 +212,32 @@ main .actions input[type=submit]:not(:last-child) {
     margin-right: 6px;
 }
 
+main .dictionary-entry {
+    margin-top: 18px;
+    padding-bottom: 18px;
+    position: relative;
+    counter-increment: entry;
+}
+
+main .dictionary-entry::before {
+    position: absolute;
+    right: 100%;
+    padding-right: 18px;
+    top: -10px;
+    font-weight: bold;
+    font-size: 3rem;
+    color: #ddd;
+    content: counter(entry);
+}
+
+main .dictionary-entry:first-child {
+    margin-top: 0;
+}
+
+main .dictionary-entry:not(:last-child) {
+    border-bottom: 1px solid #ddd;
+}
+
 main ul.dictionary {
     list-style: none;
     padding: 0;

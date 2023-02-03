@@ -17,4 +17,4 @@ class DashboardView(BaseView):
         return Batch.objects.filter(
             Q(contributors=self.request.user) | Q(created_by=self.request.user),
             submitted=False,
-        )
+        ).distinct()

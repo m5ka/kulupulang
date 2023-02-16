@@ -5,6 +5,8 @@ from django.conf import settings
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
+from kulupulang.models.theme import Theme
+
 
 class BaseView(TemplateView):
     def get_context_data(self, **kwargs):
@@ -30,10 +32,11 @@ class BaseView(TemplateView):
 
     def get_user_theme(self):
         if not self.request.user.is_authenticated:
-            return path.join(settings.STATIC_URL, "css", "default.theme.css")
-        return path.join(
-            settings.STATIC_URL, "css", "%s.theme.css" % self.request.user.theme
-        )
+            try:
+                return Theme.objects.get(name="default")
+            except Theme.DoesNotExist:
+                return None
+        return self.request.user.theme
 
 
 class BaseFormView(BaseView, FormView):

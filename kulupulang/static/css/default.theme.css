@@ -176,7 +176,6 @@ main form label {
     padding-top: 7px;
     font-size: .875rem;
     text-transform: lowercase;
-    color: var(--dark-mint);
 }
 
 main form label.required::after {
@@ -238,6 +237,39 @@ main form.search {
     display: grid;
     grid-template-columns: 1fr auto auto;
     margin-bottom: .75rem;
+}
+
+main form .field ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+main form .field .option-box {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 1rem;
+    align-items: baseline;
+}
+
+main form .field .option-box + .option-box {
+    margin-top: .5rem;
+}
+
+main form .field .option-box label {
+    color: #222;
+    font-size: 1rem;
+    padding: 0;
+}
+
+main form .field .option-box .option-description {
+    font-size: .875rem;
+    color: #666;
+    grid-column: 2;
+}
+
+main form .field .option-box + .help_text {
+    margin-top: .75rem;
 }
 
 main section:not(:first-child) {

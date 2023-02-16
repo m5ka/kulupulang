@@ -1,0 +1,9 @@
+{% for group, options, index in widget.optgroups %}{% for option in options %}
+<div class="option-box">
+    <input type="radio" name="{{ option.name }}" value="{{ option.value }}" {% include "django/forms/widgets/attrs.html" with widget=option %}>
+    <label for="{{ option.attrs.id }}">{{ option.label }}</label>
+    {% if option.value.instance.description %}
+    <span class="option-description">{{ option.value.instance.description }}</span>
+    {% endif %}
+</div>
+{% endfor %}{% endfor %}

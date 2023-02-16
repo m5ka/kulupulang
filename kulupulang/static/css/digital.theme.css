@@ -190,6 +190,33 @@ main form .field .help_text {
     font-size: .8175rem;
 }
 
+main form .field .option-box {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 1rem;
+    align-items: baseline;
+}
+
+main form .field .option-box + .option-box {
+    margin-top: .5rem;
+}
+
+main form .field .option-box label {
+    color: var(--alien-green);
+    font-size: .875rem;
+    padding: 0;
+}
+
+main form .field .option-box .option-description {
+    font-size: .8175rem;
+    color: var(--muted-alien-green);
+    grid-column: 2;
+}
+
+main form .field .option-box + .help_text {
+    margin-top: .75rem;
+}
+
 main form .actions {
     grid-column: 2;
     margin-top: 12px;

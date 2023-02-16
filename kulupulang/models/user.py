@@ -4,6 +4,8 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
+from .theme import Theme
+
 
 class User(AbstractUser):
     username = models.CharField(
@@ -26,10 +28,11 @@ class User(AbstractUser):
         max_length=64,
         blank=True,
     )
-    theme = models.CharField(
+    theme = models.ForeignKey(
+        Theme,
+        on_delete=models.SET_DEFAULT,
+        default=1,
         help_text="the theme you want to display the site in",
-        max_length=64,
-        default="default",
     )
 
     @property

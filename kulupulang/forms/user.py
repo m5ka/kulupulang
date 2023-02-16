@@ -1,7 +1,7 @@
 from django import forms
-from django.conf import settings
 
-from ..models.user import User
+from ..models import Theme, User
+from .widgets.theme import ThemeSelect
 
 
 class UserSelectForm(forms.Form):
@@ -34,4 +34,6 @@ class UserSettingsForm(forms.ModelForm):
             "preferred_name",
             "theme",
         )
-        widgets = {"theme": forms.Select(choices=settings.KULUPULANG_USER_THEMES)}
+        widgets = {
+            "theme": ThemeSelect,
+        }

@@ -5,13 +5,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{{ title ~ ' · ' if title else '' }}il makkulu</title>
         <link rel="stylesheet" href="{{ static('css/base.css') }}" type="text/css">
-        <link rel="stylesheet" href="{{ theme }}" type="text/css">
+        <link rel="stylesheet" href="{{ theme.css_path }}" type="text/css">
+        {% for css in theme.get_external_css() %}<link rel="stylesheet" href="{{ css }}" type="text/css">{% endfor %}
+        {% for js in theme.get_external_js() %}<script src="{{ js }}"></script>{% endfor %}
     </head>
     <body>
-        <div class="everything">
+        <div class="everything window">
             <div class="header-and-main">
                 <header>
-                    <div class="brand">il makkulu.</div>
+                    <div class="brand title-bar">
+                        <span class="title-bar-text">il makkulu.</span>
+                        {% if theme.name == "windows" %}
+                            <div class="title-bar-controls">
+                                <button aria-label="Minimize"></button>
+                                <button aria-label="Maximize"></button>
+                                <button aria-label="Close"></button>
+                            </div>
+                        {% endif %}
+                    </div>
                     <nav>
                         <ul>
                             {% if request.user.is_authenticated %}
@@ -30,7 +41,7 @@
                         </ul>
                     </nav>
                 </header>
-                <main>
+                <main class="window-body">
                     {% if messages %}
                         <div class="alerts">
                             {% for message in messages %}
@@ -42,7 +53,7 @@
                     {% endblock content %}
                 </main>
             </div>
-            <footer>
+            <footer class="status-bar">
                 <p>this was coded by zee · let me know if you have a problem · <a
                         href="https://github.com/marzusia/kulupulang">github</a></p>
             </footer>

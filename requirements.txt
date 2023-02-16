@@ -1,10 +1,12 @@
 django >= 3.2.8, < 4.0
-django-admin >= 2.0.1
-django-jinja >= 2.9, < 3.0
-django-crontab >= 0.7
-mysqlclient >= 2.0.3, < 3.0
-pymemcache >= 3.5.0, < 4.0
-python-slugify >= 5.0.2, < 6.0
-gunicorn >= 20.1.0, < 21.0
-discord-webhook >= 0.15.0, <= 1.0
-Faker >= 16.6.0, <= 17.0
+django-admin >= 2.0.1, < 2.1
+django-jinja >= 2.9, < 2.10
+django-crontab >= 0.7, < 0.8
+mysqlclient >= 2.0.3, < 2.1
+pymemcache >= 3.5.0, < 3.6
+python-slugify >= 5.0.2, < 5.1
+gunicorn >= 20.1.0, < 20.2
+discord-webhook >= 0.15.0, < 0.16
+Faker >= 16.6.0, < 16.7
+djangorestframework >= 3.14.0, < 3.15
+django-filter >= 22.1, < 22.2

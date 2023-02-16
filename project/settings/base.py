@@ -27,6 +27,8 @@ INSTALLED_APPS = [
     "django.contrib.humanize",
     "django_jinja",
     "django_crontab",
+    "rest_framework",
+    "django_filters",
     "kulupulang",
 ]
 
@@ -118,6 +120,18 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# REST Configuration
+# https://www.django-rest-framework.org/#installation
+
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
+    ],
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 20,
+}
 
 
 # Cron jobs

@@ -1,5 +1,7 @@
-from django.urls import path
+from django.urls import include, path
+from rest_framework import routers
 
+from .views.api.word import BatchViewSet, WordViewSet
 from .views.auth import SettingsView, LoginView, LogoutView
 from .views.batch import (
     AddContributorBatchView,
@@ -20,6 +22,11 @@ from .views.discussion import (
 )
 from .views.static import DashboardView
 from .views.word import DeleteWordView, EditWordView, NewWordView, ShowWordView
+
+
+router = routers.DefaultRouter()
+router.register(r"batches", BatchViewSet)
+router.register(r"words", WordViewSet)
 
 
 urlpatterns = [
@@ -64,5 +71,6 @@ urlpatterns = [
     path("dictionary/<str:slug>", ShowDictionaryView.as_view(), name="dictionary.show"),
     path("settings", SettingsView.as_view(), name="settings"),
     path("logout", LogoutView.as_view(), name="logout"),
+    path("api/", include(router.urls)),
     path("", LoginView.as_view(), name="login"),
 ]

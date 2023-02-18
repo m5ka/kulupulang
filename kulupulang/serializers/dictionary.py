@@ -6,7 +6,17 @@ from kulupulang.models.dictionary import Batch, Word
 class WordSerializer(serializers.ModelSerializer):
     class Meta:
         model = Word
-        fields = ["headword", "pos", "cls", "definition", "etymology", "notes"]
+        fields = [
+            "id",
+            "headword",
+            "slug",
+            "pos",
+            "cls",
+            "definition",
+            "etymology",
+            "notes",
+            "url",
+        ]
 
 
 class BatchSerializer(serializers.ModelSerializer):
@@ -18,6 +28,7 @@ class BatchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Batch
         fields = [
+            "id",
             "name",
             "description",
             "submitted",
@@ -27,5 +38,6 @@ class BatchSerializer(serializers.ModelSerializer):
             "passed_at",
             "voting_from",
             "voting_hours",
+            "url",
             "word_set",
         ]
